@@ -6,6 +6,4 @@ import { TableService } from "./table.service";
     controllers: [TableController],
     providers: [TableService],
 })
-export class TableModule {
-
-}
+export class TableModule{}
