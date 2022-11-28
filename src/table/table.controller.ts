@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger/dist/decorators';
 @ApiTags('table')
 @Controller('table')
 export class TableController {
-  constructor(private tableService: TableService) {}
+  constructor(private readonly tableService: TableService) {}
 
   @Get()
   findAll() {
@@ -14,7 +14,7 @@ export class TableController {
   }
 
   @Post()
-  create(@Body() createTableDto: CreateTableDto) {
-    return this.tableService.create(createTableDto);
+  create(@Body() dto: CreateTableDto) {
+    return this.tableService.create(dto);
   }
 }
