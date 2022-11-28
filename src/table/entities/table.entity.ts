@@ -1,4 +1,4 @@
 export class Table {
-    id: string;
-    number: number;
+  id: string;
+  number: number;
 }
