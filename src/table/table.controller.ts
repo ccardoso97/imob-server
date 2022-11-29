@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateTableDto } from './dto/create.table.dto';
 import { TableService } from './table.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger/dist/decorators';
@@ -40,5 +50,14 @@ export class TableController {
   })
   update(@Param('id') id: string, @Body() dto: UpdateTableDto): Promise<Table> {
     return this.tableService.update(id, dto);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({
+    summary: 'Excluir um imóvel',
+  })
+  delete(@Param('id') id: string) {
+    this.tableService.delete(id);
   }
 }
