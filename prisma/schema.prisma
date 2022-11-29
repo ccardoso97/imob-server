@@ -11,6 +11,36 @@ model Table {
   id     String @id @default(uuid())
   number Int    @unique
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("table")
+}
+
+model Product {
+  id String @id @default(uuid())
+
+  title   String @unique
+  address String @unique
+  price   Float
+  image   String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("product")
+}
+
+model User {
+  id String @id @default(uuid())
+
+  userName String @unique @map("user_name")
+  name     String
+  password String
+  image    String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
 }
