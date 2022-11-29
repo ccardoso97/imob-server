@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsUrl } from 'class-validator';
+import { IsNumber, IsString, IsUrl } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -9,12 +9,14 @@ export class CreateProductDto {
   })
   title: string;
 
+  @IsString()
   @ApiProperty({
     description: 'Endereço do imóvel',
     example: 'Rua A, Apto.201',
   })
   address: string;
-
+  
+  @IsNumber()
   @ApiProperty({
     description: 'Valor do aluguel',
     example: 99.9,

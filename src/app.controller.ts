@@ -9,7 +9,7 @@ export class AppController {
 
   @Get()
   @ApiOperation({
-    summary: 'Mostrar todos os imóveis'
+    summary: 'Mostrar o status'
   })
   getHello(): string {
     return this.appService.getHello();
