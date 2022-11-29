@@ -19,8 +19,8 @@ async function bootstrap() {
     .setDescription('Aplicação para gestão de imobiliaria')
     .setVersion('1.0.0')
     .addTag('status')
-    .addTag('table')
     .addTag('product')
+    .addTag('user')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
