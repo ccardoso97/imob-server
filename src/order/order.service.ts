@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
+import { CreateOrderProductDto } from './dto/create-order-product.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 
 @Injectable()
@@ -16,9 +17,13 @@ export class OrderService {
         },
       },
       products: {
-        connect: createOrderDto.products.map((productId) => ({
-          id: productId,
-        })),
+        createMany: {
+          data: createOrderDto.products.map((createOrderProductDto) => ({
+            productId: createOrderProductDto.productId,
+            quantity: createOrderProductDto.quantity,
+            description: createOrderProductDto.description,
+          })),
+        },
       },
     };
 
@@ -34,11 +39,15 @@ export class OrderService {
           },
           products: {
             select: {
-              title: true,
+              product: {
+                select: {
+                  title: true,
+                },
+              },
             },
           },
-        }
-        })
+        },
+      })
       .catch(handleError);
   }
 
@@ -48,15 +57,15 @@ export class OrderService {
         id: true,
         user: {
           select: {
-            name: true
-          }
+            name: true,
+          },
         },
         _count: {
           select: {
-            products: true
-          }
-        }
-      }
+            products: true,
+          },
+        },
+      },
     });
   }
 
@@ -66,19 +75,23 @@ export class OrderService {
       include: {
         user: {
           select: {
-            name: true
+            name: true,
           },
         },
         products: {
           select: {
-            id: true,
-            title: true,
-            address: true,
-            price: true,
-            image: true
-          }
-        }
-      }
+            product: {
+              select: {
+                id: true,
+                title: true,
+                address: true,
+                price: true,
+                image: true,
+              },
+            },
+          },
+        },
+      },
     });
   }
 }
