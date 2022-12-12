@@ -13,11 +13,33 @@ export class OrderService {
       user: {
         connect: {
           id: createOrderDto.userId,
-        },        
+        },
+      },
+      products: {
+        connect: createOrderDto.products.map((productId) => ({
+          id: productId,
+        })),
       },
     };
 
-    return this.prisma.order.create({ data }).catch(handleError);
+    return this.prisma.order
+      .create({
+        data,
+        select: {
+          id: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
+          products: {
+            select: {
+              title: true,
+            },
+          },
+        }
+        })
+      .catch(handleError);
   }
 
   findAll() {
