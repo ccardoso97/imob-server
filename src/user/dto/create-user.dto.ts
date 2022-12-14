@@ -17,7 +17,7 @@ export class CreateUserDto {
   name: string;
 
   @IsString()
-  @MinLength(8)
+  @MinLength(4)
   @ApiProperty({
     description: 'Sua senha',
     example: 'Abcd1234',
